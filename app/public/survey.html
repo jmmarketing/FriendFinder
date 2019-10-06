@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
 
 
 </head>
@@ -220,83 +220,85 @@
         <!---------- BOOTSTRAP MODAL ------------------>
         <div id="resultsModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">
-                    &times;
-                  </button>
-                  <h2 class="modal-title"><strong>Best Match</strong></h2>
+                <div class="modal-content" style="width:300px; align-items:center;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+
+                        </button>
+                        <h2 class="modal-title"><strong>Best Match</strong></h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <h2 id="matchName"></h2>
+                        <img id="matchImg" src="https://via.placeholder.com/400x400"
+                            alt="Placeholder image in case user pic doesn't show" style="width:100%;"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
                 </div>
-      
-                <div class="modal-body">
-                  <h2 id="matchName"></h2>
-                  <img
-                    id="matchImg"
-                    src="https://via.placeholder.com/400x400"
-                    alt="Placeholder image in case user pic doesn't show"
-                  />
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">
-                    Close
-                  </button>
-                </div>
-              </div>
             </div>
 
 
+        </div>
+
+        <!------- JQUERY--------->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        
+            <!----------- END --------->
+
+        <script type="text/javascript">
+            $("#submit").on("click", function (event) {
+                event.preventDefault();
+
+                var name = $("#name").val().trim();
+                var photo = $("#photo").val().trim();
+                var q1 =$("#q1").val();
+                var q2 =$("#q2").val();
+                var q3 =$("#q3").val();
+                var q4 =$("#q4").val();
+                var q5 =$("#q5").val();
+                var q6 =$("#q6").val();
+                var q7 =$("#q7").val();
+                var q8 =$("#q8").val();
+                var q9 =$("#q9").val();
+                var q10 =$("#q10").val();
+
+                if (!name || !photo || !q1 || !q2 || !q3 || !q4 || !q5 || !q6 || !q7 || !q8 || !q9 || !q10) {
+                    alert("Please Fill Out ALL Fields Before Submitting")
+                } else{
+
+                    var newFriend = {
+                    name: name,
+                    photo: photo,
+                    scores: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
+                }
 
 
 
+                $.post("/api/friends", newFriend, function (data) {
+                    $("#matchName").text(data.name);
+                    $("#matchImg").attr("src", data.photo);
+                    $("#resultsModal").modal("toggle");
 
 
+                });
+                }
 
-
-    </div>
-
-    <!------- JQUERY--------->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <!----------- END --------->
-
-    <script type="text/javascript">
-        $("#submit").on("click", function (event) {
-            event.preventDefault();
-
-            var name = $("#name").val().trim();
-            var photo = $("#photo").val().trim();
-            var q1 = parseInt($("#q1").val().trim());
-            var q2 = parseInt($("#q2").val().trim());
-            var q3 = parseInt($("#q3").val().trim());
-            var q4 = parseInt($("#q4").val().trim());
-            var q5 = parseInt($("#q5").val().trim());
-            var q6 = parseInt($("#q6").val().trim());
-            var q7 = parseInt($("#q7").val().trim());
-            var q8 = parseInt($("#q8").val().trim());
-            var q9 = parseInt($("#q9").val().trim());
-            var q10 = parseInt($("#q10").val().trim());
-
-            if (!name || !photo || !q1 || !q2 || !q3 || !q4 || !q5 || !q6 || !q7 || !q8 || !q9 || !q10) {
-                alert("Please Fill Out ALL Fields Before Submitting")
-            }
-
-            var newFriend = {
-                name: name,
-                photo: photo,
-                scores: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
-            }
-
-
-
-            $.post("/api/friends", newFriend, function(data){
+              
 
             })
-        
-        })
 
 
 
-    </script>
+
+
+        </script>
 
 
 
