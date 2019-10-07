@@ -14,6 +14,8 @@ In this activity, we built a compatibility-based "FriendFinder" application -- b
 * jQuery
 * Express
 
+Note: Node was used for the local environment before deploying. 
+
 ### Challenges Faced
 
 The toughest challenge for this app, was using multiple files to route our API and HTML requests. Making sure you have the correct file/folder structure is key, as well as making sure we require all necessary files in the Server.js file and any other necessary files. 
